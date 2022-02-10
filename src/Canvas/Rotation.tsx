@@ -18,8 +18,8 @@ export const Rotation: FC<{
       rotation={rotation}
       anchor={0.5}
       pivot={pivot}
-      x={size.width / 2}
-      y={size.height / 2}
+      x={pivot.x}
+      y={pivot.y}
     >
       {children}
     </Sprite>
