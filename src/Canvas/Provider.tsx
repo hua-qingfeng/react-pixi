@@ -3,15 +3,15 @@ import { createContext, FC, useContext } from "react";
 import { useStage } from "./Stage";
 
 interface ContainerCtxProps {
-  app: Container | null;
+  container: Container | null;
 }
 const ContainerCtx = createContext({} as ContainerCtxProps);
 
-export const Provider: FC<ContainerCtxProps> = ({ app, children }) => {
+export const Provider: FC<ContainerCtxProps> = ({ container, children }) => {
   return (
     <ContainerCtx.Provider
       value={{
-        app,
+        container,
       }}
     >
       {children}
@@ -22,5 +22,5 @@ export const Provider: FC<ContainerCtxProps> = ({ app, children }) => {
 export const useContainer = () => {
   const ctx = useContext(ContainerCtx);
   const stage = useStage();
-  return ctx.app || stage.app.stage;
+  return ctx.container || stage.app.stage;
 }

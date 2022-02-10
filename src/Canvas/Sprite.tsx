@@ -38,5 +38,5 @@ export const Sprite: FC<SpriteProps> = ({ x = 0, y = 0, anchor = 1, rotation = 0
     if (pivot) 
       obj.pivot.set(pivot?.x, pivot?.y)
   }, [pivot])
-  return <Provider app={obj}>{children}</Provider>;
+  return <Provider container={obj}>{children}</Provider>;
 };
