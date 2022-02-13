@@ -1,11 +1,22 @@
 import { Application } from "pixi.js";
-import { createContext, FC, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  createContext,
+  FC,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import * as PIXI from 'pixi.js'
 
 interface StageProps {
   width: number;
   height: number;
   backgroundColor?: number;
 }
+
+PIXI.settings.RESOLUTION = window.devicePixelRatio;
 
 export const Stage: FC<StageProps> = ({
   width,
@@ -18,8 +29,8 @@ export const Stage: FC<StageProps> = ({
   useLayoutEffect(() => {
     if (canvasRef.current) {
       const app = new Application({
-        width,
-        height,
+        width: width,
+        height: height,
         view: canvasRef.current,
         backgroundColor,
       });
@@ -32,7 +43,9 @@ export const Stage: FC<StageProps> = ({
     }
   }, []);
   return (
-    <canvas ref={canvasRef}>
+    <canvas ref={canvasRef} style={{
+      width, height
+    }}>
       {app && (
         <StageCtx.Provider
           value={{
@@ -53,4 +66,4 @@ const StageCtx = createContext({} as StageCtxProps);
 
 export const useStage = () => {
   return useContext(StageCtx);
-}
+};

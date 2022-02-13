@@ -1,5 +1,6 @@
 import { Graphics } from "pixi.js";
-import { FC, useEffect, useMemo } from "react";
+import { FC, useContext, useEffect, useMemo } from "react";
+import { PositionContext } from "../Context/RadiusContext";
 import { useContainer } from "./Provider";
 import { useStage } from "./Stage";
 
@@ -17,6 +18,7 @@ export const Rectangle: FC<RectangleProps> = ({
   children,
 }) => {
   const app = useContainer();
+  const { x, y } = useContext(PositionContext)
   const obj = useMemo(() => new Graphics(), []);
   useEffect(() => {
     obj.clear();
@@ -27,13 +29,5 @@ export const Rectangle: FC<RectangleProps> = ({
       app.removeChild(obj);
     };
   }, [app, obj, fillColor, width, height, radius]);
-  useEffect(() => {
-    obj.beginFill(fillColor);
-    obj.endFill();
-  }, [fillColor, obj]);
-  useEffect(() => {
-    obj.width = width;
-    obj.height = height;
-  }, [obj, width, height]);
   return <>{children}</>;
 };

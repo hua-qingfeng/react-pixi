@@ -4,35 +4,38 @@ import { Rectangle } from "./Canvas/Rectangle";
 import { Rotation } from "./Canvas/Rotation";
 import { Sprite } from "./Canvas/Sprite";
 import { Stage } from "./Canvas/Stage";
+import { PositionContext, RadiusContext } from "./Context/RadiusContext";
+import { MyApp } from "./MyApp";
+// import { PIXIApp } from "./PIXIApp";
 import { sizeAtom } from "./store";
 
 function App() {
   const [color, setColor] = useState(0xff0000);
-  const [x, setX] = useState(100);
-  const [rotate, setRotate] = useState(0)
-  const [radius, setRadius ] = useState(144);
-  const [size] = useAtom(sizeAtom)
-
-  const changeRadius = () => setRadius(r => r + 10)
+  const [rotate, setRotate] = useState(0);
+  const [radius, setRadius] = useState(20);
+  const [position, setPosition] = useState({ x: 100, y: 100 });
+  const changeRadius = () => setRadius((r) => r + 4);
+  console.log('App.tsx:16', radius);
   return (
     <>
-      <button
-        onClick={() => {
-          // setColor(0x00ff00);
-          // setX(50);
-          setRotate(0.7854)
+      <div>
+        <button onClick={changeRadius}>set radius</button>
+      </div>
+      <PositionContext.Provider
+        value={{
+          x: position.x,
+          y: position.y,
         }}
       >
-        set color
-      </button>
-      <button onClick={changeRadius}>set radius</button>
-      <Stage width={1920} height={1080}>
-        <Sprite x={x} y={100}>
-          <Rotation rotation={rotate}>
-            <Rectangle width={size.width} height={size.height} fillColor={color} radius={radius} />
-          </Rotation>
-        </Sprite>
-      </Stage>
+        <RadiusContext.Provider
+          value={{
+            radius,
+          }}
+        >
+          {/* <PIXIApp /> */}
+          <MyApp />
+        </RadiusContext.Provider>
+      </PositionContext.Provider>
     </>
   );
 }
