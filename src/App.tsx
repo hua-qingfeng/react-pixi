@@ -10,7 +10,10 @@ function App() {
   const [color, setColor] = useState(0xff0000);
   const [x, setX] = useState(100);
   const [rotate, setRotate] = useState(0)
+  const [radius, setRadius ] = useState(144);
   const [size] = useAtom(sizeAtom)
+
+  const changeRadius = () => setRadius(r => r + 10)
   return (
     <>
       <button
@@ -22,10 +25,11 @@ function App() {
       >
         set color
       </button>
+      <button onClick={changeRadius}>set radius</button>
       <Stage width={1920} height={1080}>
         <Sprite x={x} y={100}>
           <Rotation rotation={rotate}>
-            <Rectangle width={size.width} height={size.height} fillColor={color} />
+            <Rectangle width={size.width} height={size.height} fillColor={color} radius={radius} />
           </Rotation>
         </Sprite>
       </Stage>
